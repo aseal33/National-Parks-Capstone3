@@ -1,0 +1,18 @@
+﻿@model IList<Parks>
+@{
+    ViewData["Title"] = "HomePage";
+}
+
+<h2>HomePage</h2>
+
+<table>
+    @foreach (var park in Model)
+    {
+        <tr>
+            <th><img src="~/images/@(park.ParkCode).jpg"></th>
+            <td>@park.ParkName</td>
+            <td>@park.State</td>
+            <td>@park.ParkDescription</td>
+        </tr>
+    }
+</table>
