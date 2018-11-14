@@ -1,0 +1,15 @@
+﻿@model Parks
+@{
+    ViewData["Title"] = "Details";
+}
+
+<a asp-controller="home" asp-action="homepage">Home</a>
+<a asp-controller="home" asp-action="survey">Survey</a>
+
+<h2>@Model.ParkName</h2>
+<img src="~/images/@(Model.ParkCode).jpg" alt="@Model.ParkName" />
+<p>@Model.InspirationalQuote -@Model.InspirationalQuoteSource</p>
+<p>@(Model.State)</p>
+<p>@Model.Acreage acres</p>
+<p>@Model.ParkDescription</p>
+

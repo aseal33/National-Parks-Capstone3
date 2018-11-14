@@ -3,14 +3,17 @@
     ViewData["Title"] = "HomePage";
 }
 
-<h2>HomePage</h2>
+<a asp-controller="home" asp-action="homepage">Home</a>
+<a asp-controller="home" asp-action="survey">Survey</a>
+<h2>CasaPage!!</h2>
+
 
 <table>
     @foreach (var park in Model)
     {
         <tr>
-            <th><img src="~/images/@(park.ParkCode).jpg"></th>
-            <td>@park.ParkName</td>
+            <th><a asp-controller="home" asp-action="details" asp-route-parkCode="@park.ParkCode"><img src="~/images/@(park.ParkCode).jpg"></a></th>
+            <td><a asp-controller="home" asp-action="details">@park.ParkName</a></td>
             <td>@park.State</td>
             <td>@park.ParkDescription</td>
         </tr>

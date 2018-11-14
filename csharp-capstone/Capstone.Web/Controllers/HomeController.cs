@@ -24,6 +24,23 @@ namespace Capstone.Web.Controllers
             return View(parks);
         }
 
+        public IActionResult Details(string parkCode)
+        {
+            var parkList = npgeekDAL.FindParks();
+            var park = npgeekDAL.ParkDetails(parkCode, parkList);
+            return View(park);
+        }
+
+        public IActionResult Survey()
+        {
+            return View();
+        }
+
+        public IActionResult SurveyResults()
+        {
+            return View();
+        }
+
       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

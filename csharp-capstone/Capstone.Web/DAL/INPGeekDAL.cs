@@ -9,5 +9,6 @@ namespace Capstone.Web.DAL
     public interface INPGeekDAL
     {
         IList<Parks> FindParks();
+        Parks ParkDetails(string id, IList<Parks> parkList);
     }
 }

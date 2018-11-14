@@ -17,6 +17,8 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
+        IList<Parks> parks = new List<Parks>();
+
         /// <summary>
         /// Returns a list of actors by last name search.
         /// </summary>
@@ -24,8 +26,6 @@ namespace Capstone.Web.DAL
         /// <returns></returns>
         public IList<Parks> FindParks()
         {
-            IList<Parks> parks = new List<Parks>();
-
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -77,6 +77,19 @@ namespace Capstone.Web.DAL
             }
 
             return parks;
+        }
+
+
+        public Parks ParkDetails(string parkCode, IList<Parks> parkList)
+        {
+            foreach (var park in parkList)
+            {
+                if (park.ParkCode == parkCode)
+                {
+                    return park;
+                }
+            }
+            return null;
         }
 
         /// <summary>
