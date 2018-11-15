@@ -18,32 +18,38 @@ namespace Capstone.Web.DAL
 
         IList<Surveys> surveys = new List<Surveys>();
 
-        public IList<Surveys> FindSurvey()
+        public Dictionary<string, int> FindSurvey()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM survey_result", conn);
+                SqlCommand cmd = new SqlCommand("SELECT parkName, COUNT('parkCode') as 'votes' FROM survey_result INNER JOIN park ON park.parkCode = survey_result.parkCode GROUP BY parkName ORDER BY votes desc", conn);
+
+                Dictionary<string, int> results = new Dictionary<string, int>();
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Surveys survey = new Surveys()
+                    results.Add(Convert.ToString(reader["parkname"]), Convert.ToInt32(reader["votes"]));                    
+                }
+                return results;
+            }
+        }
+
+        public Dictionary<Parks, int> ConvertResults(Dictionary<string, int> results, IList<Parks> parks)
+        {
+            var surveyParks = new Dictionary<Parks, int>();
+            foreach (var kvp in results)
+            {
+                foreach (var park in parks)
+                {
+                    if (kvp.Key == park.ParkName)
                     {
-                        SurveyId = Convert.ToInt32(reader["surveyid"]),
-
-                        ParkCode = Convert.ToString(reader["parkcode"]),
-
-                        EmailAddress = Convert.ToString(reader["emailaddress"]),
-
-                        State = Convert.ToString(reader["state"]),
-
-                        ActivityLevel = Convert.ToString(reader["activitylevel"])
-                    };
-                    surveys.Add(survey);
+                        surveyParks.Add(park, kvp.Value);
+                    }
                 }
             }
-            return surveys;
+            return surveyParks;
         }
 
         /// <summary>

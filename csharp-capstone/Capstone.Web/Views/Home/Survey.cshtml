@@ -6,28 +6,30 @@
 <h2>Survey</h2>
 
 <form asp-controller="home" asp-action="SurveyResults" method="post">
-    @*<label asp-for="ParkCode">Favorite National Park: </label>
-    <select asp-for="ParkCode" asp-items="" />*@
 
+    <label asp-for="ParkCode">Favorite National Park: </label>
+    <select asp-for="ParkCode" asp-items="@Model.parks"></select>
+    <br />
     <label asp-for="EmailAddress">Email Address: </label>
-    <input type="text" name="EmailAddress">
-
+    <input type="text" name="EmailAddress" required>
+    <br />
     <label asp-for="State">State of Residence: </label>
-    <input type="text" name="lastname">
+    <select asp-for="State" asp-items="@Model.states"></select>
+    <br />
 
     <label asp-for="ActivityLevel">Activity Level: </label>
 
-        <input type="radio" id="inactive" name="drone" value="inactive" checked>
-        <label for="inactive">Inactive</label>
+    <input type="radio" id="inactive" name="drone" value="inactive" checked>
+    <label for="inactive">Inactive</label>
 
-        <input type="radio" id="sedentary" name="drone" value="sedentary">
-        <label for="sedentary">sedentary</label>
+    <input type="radio" id="sedentary" name="drone" value="sedentary">
+    <label for="sedentary">Sedentary</label>
 
-        <input type="radio" id="active" name="drone" value="active">
-        <label for="active">Active</label>
+    <input type="radio" id="active" name="drone" value="active">
+    <label for="active">Active</label>
 
-        <input type="radio" id="extremelyActive" name="drone" value="extremelyActive">
-        <label for="extremelyActive">Extremely Active</label>
+    <input type="radio" id="extremelyActive" name="drone" value="extremelyActive">
+    <label for="extremelyActive">Extremely Active</label>
 
 
     <input type="submit" value="Submit">

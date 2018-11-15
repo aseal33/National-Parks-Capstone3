@@ -8,8 +8,10 @@ namespace Capstone.Web.DAL
 {
     public interface ISurveyDAL
     {
-        IList<Surveys> FindSurvey();
+        Dictionary<string, int> FindSurvey();
 
         void SaveSurvey(Surveys newSurvey);
+
+        Dictionary<Parks, int> ConvertResults(Dictionary<string, int> results, IList<Parks> parks);
     }
 }

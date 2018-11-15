@@ -1,16 +1,26 @@
-﻿@model Surveys
+﻿@model Dictionary<Parks, int>
 @{
     ViewData["Title"] = "SurveyResults";
 }
 
 <h2>SurveyResults</h2>
 
-@*<table>
-    @foreach (var survey in Model)
-    {
+<table>
+    <thead>
         <tr>
-            <th>
-            </th>
+            <th>Pretty</th>
+            <th>Park</th>
+            <th>State</th>
+            <th>Number of Votes</th>
         </tr>
-    }
-</table>*@
+    </thead>
+    <tr>
+        @foreach (var survey in Model)
+        {
+            <td><a asp-controller="home" asp-action="details" asp-route-parkCode="parkCode"><img src="~/images/@(survey.Key.ParkCode).jpg" alt="@survey.Key.ParkName" /></a></td>
+            <td><a asp-controller="home" asp-action="details" asp-route-parkCode="parkCode">@survey.Key.ParkName</a></td>
+            <td>@survey.Key.State</td>
+            <td>@survey.Value</td>
+        }
+    </tr>
+</table>

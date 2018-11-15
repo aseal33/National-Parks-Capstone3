@@ -12,11 +12,12 @@ namespace Capstone.Web.Controllers
     public class HomeController : Controller
     {
         private INPGeekDAL npgeekDAL;
-        public HomeController(INPGeekDAL npgeekDAL)
+        private ISurveyDAL surveyDAL;
+        public HomeController(INPGeekDAL npgeekDAL, ISurveyDAL surveyDAL)
         {
             this.npgeekDAL = npgeekDAL;
+            this.surveyDAL = surveyDAL;
         }
-
 
         public IActionResult HomePage()
         {
@@ -33,15 +34,23 @@ namespace Capstone.Web.Controllers
 
         public IActionResult Survey()
         {
-            return View();
+            Surveys survey = new Surveys();
+            return View(survey);
         }
 
         public IActionResult SurveyResults()
-        {
-            return View();
+        {            
+            var parks = npgeekDAL.FindParks();
+            var reviews = surveyDAL.FindSurvey();
+            var surveyParks = surveyDAL.ConvertResults(reviews, parks);
+            return View(surveyParks);
         }
 
-      
+        public IActionResult SaveSurvey(Surveys newSurvey)
+        {
+            surveyDAL.SaveSurvey(newSurvey);
+            return RedirectToAction("SurveyResults");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
