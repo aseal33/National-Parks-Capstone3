@@ -64,11 +64,13 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd =new SqlCommand("INSERT INTO survey_results VALUES (@parkcode, @emailaddress, @state, @activitylevel)", conn);
+                    SqlCommand cmd =new SqlCommand("INSERT INTO survey_result VALUES (@parkcode, @emailaddress, @state, @activitylevel)", conn);
                     cmd.Parameters.AddWithValue("@parkcode", newSurvey.ParkCode);
                     cmd.Parameters.AddWithValue("@emailaddress", newSurvey.EmailAddress);
                     cmd.Parameters.AddWithValue("@state", newSurvey.State);
                     cmd.Parameters.AddWithValue("@activitylevel", newSurvey.ActivityLevel);
+
+                    cmd.ExecuteNonQuery();
                 }
             }
             catch (SqlException ex)

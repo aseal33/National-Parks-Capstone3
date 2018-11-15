@@ -5,7 +5,7 @@
 
 <h2>Survey</h2>
 
-<form asp-controller="home" asp-action="SurveyResults" method="post">
+<form asp-controller="home" asp-action="SaveSurvey" method="post">
 
     <label asp-for="ParkCode">Favorite National Park: </label>
     <select asp-for="ParkCode" asp-items="@Model.parks"></select>
@@ -19,16 +19,16 @@
 
     <label asp-for="ActivityLevel">Activity Level: </label>
 
-    <input type="radio" id="inactive" name="drone" value="inactive" checked>
+    <input type="radio" id="inactive" name="activityLevel" value="Inactive">
     <label for="inactive">Inactive</label>
 
-    <input type="radio" id="sedentary" name="drone" value="sedentary">
+    <input type="radio" id="sedentary" name="activityLevel" value="Sedentary">
     <label for="sedentary">Sedentary</label>
 
-    <input type="radio" id="active" name="drone" value="active">
+    <input type="radio" id="active" name="activityLevel" value="Active">
     <label for="active">Active</label>
 
-    <input type="radio" id="extremelyActive" name="drone" value="extremelyActive">
+    <input type="radio" id="extremelyActive" name="activityLevel" value="Extremely Active">
     <label for="extremelyActive">Extremely Active</label>
 
 

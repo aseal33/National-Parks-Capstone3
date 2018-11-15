@@ -53,6 +53,8 @@ namespace Capstone.Web.Controllers
             return View(surveyParks);
         }
 
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
         public IActionResult SaveSurvey(Surveys newSurvey)
         {
             surveyDAL.SaveSurvey(newSurvey);
