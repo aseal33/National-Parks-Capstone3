@@ -66,6 +66,7 @@ namespace Capstone.Web.DAL
 
                         NumberOfAnimalSpecies = Convert.ToInt32(reader["numberofanimalspecies"])
                     };
+
                     parks.Add(park);
                 }
 

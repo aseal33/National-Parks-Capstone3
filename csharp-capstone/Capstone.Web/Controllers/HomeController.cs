@@ -13,10 +13,12 @@ namespace Capstone.Web.Controllers
     {
         private INPGeekDAL npgeekDAL;
         private ISurveyDAL surveyDAL;
-        public HomeController(INPGeekDAL npgeekDAL, ISurveyDAL surveyDAL)
+        private IWeatherDAL weatherDAL;
+        public HomeController(INPGeekDAL npgeekDAL, ISurveyDAL surveyDAL, IWeatherDAL weatherDAL)
         {
             this.npgeekDAL = npgeekDAL;
             this.surveyDAL = surveyDAL;
+            this.weatherDAL = weatherDAL;
         }
 
         public IActionResult HomePage()
@@ -29,6 +31,11 @@ namespace Capstone.Web.Controllers
         {
             var parkList = npgeekDAL.FindParks();
             var park = npgeekDAL.ParkDetails(parkCode, parkList);
+
+            //ViewBag.Message = "";
+            //ViewData["Parks"] = npgeekDAL.FindParks();
+            //ViewData[""]
+
             return View(park);
         }
 

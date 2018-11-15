@@ -16,14 +16,14 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        IList<Weather> weatherForecast = new List<Weather>();
+        IList<DailyWeather> weatherForecast = new List<DailyWeather>();
 
         /// <summary>
-        /// Returns a list of actors by last name search.
+        /// Returns a list of daily weather forcasts
         /// </summary>
         /// <param name="WeatherSearch"></param>
         /// <returns></returns>
-        public IList<Weather> FindWeather()
+        public IList<DailyWeather> FindWeather()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -33,7 +33,7 @@ namespace Capstone.Web.DAL
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    Weather weather = new Weather()
+                    DailyWeather weather = new DailyWeather()
                     {
                         ParkCode = Convert.ToString(reader["parkcode"]),
 
@@ -49,6 +49,25 @@ namespace Capstone.Web.DAL
                 }
             }
             return weatherForecast;
+        }
+
+        public FiveDayWeather CombineWeather(string parkCode)
+        {
+            var dal = new WeatherDAL(connectionString);
+            var five = new FiveDayWeather();
+            var list = new List<DailyWeather>();
+            IList<DailyWeather> dailyWeathers = dal.FindWeather();
+
+            for (int i = 0; i <= dailyWeathers.Count; i++)
+            {
+                if (parkCode == dailyWeathers[i].ParkCode)
+                {
+                    list.Add(dailyWeathers[i]);
+                }
+            }
+
+            list = five.weathers;
+            return five;
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Capstone.Web.DAL
 {
-    interface IWeatherDAL
+    public interface IWeatherDAL
     {
-        IList<Weather> FindWeather();
+        IList<DailyWeather> FindWeather();
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Capstone.Web.Models
 {
-    public class Weather
+    public class DailyWeather
     {
         public string ParkCode { get; set; }
 

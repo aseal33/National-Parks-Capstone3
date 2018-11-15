@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Web.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,6 +8,14 @@ namespace Capstone.Web.Models
 {
     public class Parks
     {
+        //private INPGeekDAL npgeekDAL;
+        //private ISurveyDAL surveyDAL;
+        //public (INPGeekDAL npgeekDAL, ISurveyDAL surveyDAL)
+        //{
+        //    this.npgeekDAL = npgeekDAL;
+        //    this.surveyDAL = surveyDAL;
+        //}
+
         public string ParkCode { get; set; }
 
         public string ParkName { get; set; }
@@ -36,5 +45,10 @@ namespace Capstone.Web.Models
         public int EntryFee { get; set; }
 
         public int NumberOfAnimalSpecies { get; set; }
+
+        //public FiveDayWeather GetWeather()
+        //{
+
+        //}
     }
 }
