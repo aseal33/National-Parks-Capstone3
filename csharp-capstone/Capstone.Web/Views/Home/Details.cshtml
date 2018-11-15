@@ -10,6 +10,19 @@
 <img src="~/images/@(Model.ParkCode).jpg" alt="@Model.ParkName" />
 <p>@Model.InspirationalQuote -@Model.InspirationalQuoteSource</p>
 <p>@(Model.State)</p>
-<p>@Model.Acreage acres</p>
+<p>Founded @Model.YearFounded</p>
 <p>@Model.ParkDescription</p>
+
+<table class="table table-striped">
+    <tr>
+        <td><strong>@Model.Acreage</strong> Acres</td>
+        <td><strong>@Model.AnnualVisitorCount</strong> Visitors Annually</td>
+        <td><strong>@Model.Climate</strong> climate</td>
+        <td><strong>@Model.ElevationInFeet</strong> ft</td>
+        <td><strong>$@Model.EntryFee</strong> to Enter</td>
+        <td><strong>@(Model.MilesOfTrail)</strong>mi of Trail</td>
+        <td><strong>@Model.NumberOfAnimalSpecies</strong> Species</td>
+        <td><strong>@Model.NumberOfCampsites</strong> Campsites</td>
+    </tr>
+</table>
 
