@@ -31,6 +31,7 @@ namespace Capstone.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddTransient<ISurveyDAL>(j => new SurveyDAL(@"Data Source=.\sqlexpress;Initial Catalog=npgeek;Integrated Security=true;"));
             services.AddTransient<INPGeekDAL>(j => new NPGeekDAL(@"Data Source=.\sqlexpress;Initial Catalog=npgeek;Integrated Security=true;"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
