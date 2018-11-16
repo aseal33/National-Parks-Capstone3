@@ -8,6 +8,20 @@
 <a asp-controller="home" asp-action="survey">Survey</a>
 <h2>CasaPage!!</h2>
 
+<style>
+    img {
+        width: 100%;
+        height: 100%;
+        margin: 15px;
+    }
+
+    table {          
+        background-image: linear-gradient(to right, rgba(47, 79, 79, .7), rgba(47, 79, 79, .3))
+        
+        }
+
+    th, td { border-bottom: 1px solid #ddd;}
+ </style>
 
 <table>
     @foreach (var park in Model)

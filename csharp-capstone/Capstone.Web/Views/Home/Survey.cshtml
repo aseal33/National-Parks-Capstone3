@@ -3,17 +3,32 @@
     ViewData["Title"] = "Survey";
 }
 
-<h2>Survey</h2>
+<style>
+  label, input {
+      margin-bottom: 15px;
+   }
+   .fields {
+      margin-left: 10%;
+      margin-right: 10%;
+      background-image: url();
+   }
+   h2, h4 {
+       text-align: center;
+   }
+</style>
 
-<form asp-controller="home" asp-action="SaveSurvey" method="post">
+<h2><strong>Survey</strong></h2>
+<h4>Have a favotire park? Let us know!</h3>
+
+<form class="fields" asp-controller="home" asp-action="SaveSurvey" method="post">
 
     <label asp-for="ParkCode">Favorite National Park: </label>
     <select asp-for="ParkCode" asp-items="@Model.parks"></select>
     <br />
-    <label asp-for="EmailAddress">Email Address: </label>
+    <label  asp-for="EmailAddress">Email Address: </label>
     <input type="text" name="EmailAddress" required>
     <br />
-    <label asp-for="State">State of Residence: </label>
+    <label  asp-for="State">State of Residence: </label>
     <select asp-for="State" asp-items="@Model.states"></select>
     <br />
 
