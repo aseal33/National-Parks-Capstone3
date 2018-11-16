@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Web.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace Capstone.Web.Models
         //public DailyWeather Day4 { get; set; }
 
         //public DailyWeather Day5 { get; set; }
+        var dal = new WeatherDAL(connectionString);
 
-        public List<DailyWeather> weathers { get; set; }
+        public List<DailyWeather> weathers = WeatherDAL.FindWeather();
     }
 }

@@ -8,6 +8,7 @@ namespace Capstone.Web.DAL
 {
     public interface IWeatherDAL
     {
-        IList<DailyWeather> FindWeather();
+        FiveDayWeather FindWeather(string parkCode);
+        FiveDayWeather ConvertWeather(FiveDayWeather fiveDay);
     }
 }

@@ -27,16 +27,34 @@ namespace Capstone.Web.Controllers
             return View(parks);
         }
 
+        [HttpGet]
         public IActionResult Details(string parkCode)
         {
             var parkList = npgeekDAL.FindParks();
             var park = npgeekDAL.ParkDetails(parkCode, parkList);
+            string tempUnit = getCurrentTempUnit();
+            if (tempUnit == "c")
+            {
+                park.Weather = weatherDAL.ConvertWeather(park.Weather);
+            }
 
             //ViewBag.Message = "";
             //ViewData["Parks"] = npgeekDAL.FindParks();
             //ViewData[""]
 
             return View(park);
+        }
+
+        [HttpPost]
+        public IActionResult Details(string tempUnit, string parkCode)
+        {
+            SaveTempUnit(tempUnit);
+            return RedirectToAction("Details(parkCode)");
+        }
+
+        private string getCurrentTempUnit()
+        {
+            throw new NotImplementedException();
         }
 
         public IActionResult Survey()

@@ -23,19 +23,20 @@ namespace Capstone.Web.DAL
         /// </summary>
         /// <param name="WeatherSearch"></param>
         /// <returns></returns>
-        public IList<DailyWeather> FindWeather()
+        public FiveDayWeather FindWeather(string parkCode)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("SELECT * FROM weather", conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM weather WHERE parkCode = @parkCode", conn);
+                cmd.Parameters.AddWithValue("@parkCode", parkCode);
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     DailyWeather weather = new DailyWeather()
                     {
-                        ParkCode = Convert.ToString(reader["parkcode"]),
+                        //ParkCode = Convert.ToString(reader["parkcode"]),
 
                         FiveDayForecastValue = Convert.ToInt32(reader["fivedayforecastvalue"]),
 
@@ -43,31 +44,52 @@ namespace Capstone.Web.DAL
 
                         High = Convert.ToInt32(reader["high"]),
 
-                        Forecast = Convert.ToInt32(reader["forecast"])
+                        Forecast = Convert.ToString(reader["forecast"])
                     };
                     weatherForecast.Add(weather);
                 }
             }
-            return weatherForecast;
-        }
+            var fiveDay = new FiveDayWeather();
 
-        public FiveDayWeather CombineWeather(string parkCode)
-        {
-            var dal = new WeatherDAL(connectionString);
-            var five = new FiveDayWeather();
-            var list = new List<DailyWeather>();
-            IList<DailyWeather> dailyWeathers = dal.FindWeather();
-
-            for (int i = 0; i <= dailyWeathers.Count; i++)
+            foreach (var day in weatherForecast)
             {
-                if (parkCode == dailyWeathers[i].ParkCode)
+                if (parkCode == day.ParkCode)
                 {
-                    list.Add(dailyWeathers[i]);
+                    fiveDay.weathers.Add(day);
                 }
             }
 
-            list = five.weathers;
-            return five;
+            return fiveDay;
+        }
+
+        //public FiveDayWeather CombineWeather(string parkCode)
+        //{
+        //    var dal = new WeatherDAL(connectionString);
+        //    var five = new FiveDayWeather();
+        //    var list = new List<DailyWeather>();
+        //    IList<DailyWeather> dailyWeathers = dal.FindWeather();
+
+        //    for (int i = 0; i <= dailyWeathers.Count; i++)
+        //    {
+        //        if (parkCode == dailyWeathers[i].ParkCode)
+        //        {
+        //            list.Add(dailyWeathers[i]);
+        //        }
+        //    }
+
+        //    list = five.weathers;
+        //    return five;
+        //}
+
+        public FiveDayWeather ConvertWeather(FiveDayWeather fiveDay)
+        {
+            foreach (var day in fiveDay.weathers)
+            {
+                day.High = ((day.High - 32) * (5 / 9));
+                day.Low = ((day.Low - 32) * (5 / 9));
+            }
+
+            return fiveDay;
         }
     }
 }
