@@ -4,8 +4,9 @@
     ViewData["Title"] = "HomePage";
 }
 
-
-<h2>¡¡CasaPage!! ¡Muy Pequeño Caliente!</h2>
+<a asp-controller="home" asp-action="homepage">Home</a>
+<a asp-controller="home" asp-action="survey">Survey</a>
+<h2>CasaPage!!</h2>
 
 <style>
     img {
@@ -14,22 +15,62 @@
         margin: 15px;
     }
 
-    table {          
-        background-image: linear-gradient(to right, rgba(47, 79, 79, .7), rgba(47, 79, 79, .3))
-        
-        }
-
-    th, td { border-bottom: 1px solid #ddd;}
- </style>
-
-<table>
-    @foreach (var park in Model)
-    {
-        <tr>
-            <th><a asp-controller="home" asp-action="details" asp-route-parkCode="@park.ParkCode"><img src="~/images/@(park.ParkCode).jpg"></a></th>
-            <td><a asp-controller="home" asp-action="details" asp-route-parkCode="@park.ParkCode">@park.ParkName</a></td>
-            <td>@park.State</td>
-            <td>@park.ParkDescription</td>
-        </tr>
+    table {
+        background-image: linear-gradient(to right, rgba(56, 66, 76, .92), rgba(56, 66, 76, .88))
     }
-</table>
+
+    th, td {
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr {
+        margin: 20px;
+    }
+
+    .grid-container > div {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto auto;
+        text-align: center;
+        background-image: linear-gradient(to right, rgba(56, 66, 76, .92), rgba(56, 66, 76, .88))
+    }
+
+    .image {
+        object-fit: contain;
+    }
+
+    .grid-photo {
+        grid-row-start: 1;
+        grid-row-end: 4;
+        grid column: 1;
+    }
+
+    .grid-park {
+        grid-row: 1;
+        grid-column: 2;
+        background-color: rosybrown;
+    }
+
+    .grid-state {
+        grid-row: 2;
+        grid-column: 2;
+        background-color: pink;
+    }
+
+    .grid-description {
+        grid-row: 3;
+        grid-column: 2;
+        background-color: red;
+    }
+</style>
+
+
+@foreach (var park in Model)
+{
+    <div class="grid-container">
+        <div class="grid-image"><a asp-controller="home" asp-action="details" asp-route-parkCode="@park.ParkCode"><img src="~/images/@(park.ParkCode).jpg"></a></div>
+        <div class="grid-park"><h4><a asp-controller="home" asp-action="details" asp-route-parkCode="@park.ParkCode">@park.ParkName</a></h4></div>
+        <div class="grid-state"><h4>@park.State</h4></div>
+        <div class="grid-description"><h4>@park.ParkDescription</h4></div>
+    </div>
+}

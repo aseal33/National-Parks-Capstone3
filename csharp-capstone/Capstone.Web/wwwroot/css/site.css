@@ -4,13 +4,19 @@ body {
     padding-top: 50px;
     padding-bottom: 20px;
 
-    background-color: url(/csharp-capstone/Capstone.Web/wwwroot/images/Leaf_Pattern.jpg);
+    background-image: url(/images/Leaf_Pattern_REDO.jpg);
     background-repeat: repeat;
+}
+
+/* Colors the links */
+a:link {
+    color:whitesmoke;
 }
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
+    color: whitesmoke;
     padding-left: 15px;
     padding-right: 15px;
 }
