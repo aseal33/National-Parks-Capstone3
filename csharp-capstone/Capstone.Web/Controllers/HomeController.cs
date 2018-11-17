@@ -13,12 +13,12 @@ namespace Capstone.Web.Controllers
     {
         private INPGeekDAL npgeekDAL;
         private ISurveyDAL surveyDAL;
-        private IWeatherDAL weatherDAL;
-        public HomeController(INPGeekDAL npgeekDAL, ISurveyDAL surveyDAL, IWeatherDAL weatherDAL)
+        //private IWeatherDAL weatherDAL;
+        public HomeController(INPGeekDAL npgeekDAL, ISurveyDAL surveyDAL)
         {
             this.npgeekDAL = npgeekDAL;
             this.surveyDAL = surveyDAL;
-            this.weatherDAL = weatherDAL;
+            //this.weatherDAL = weatherDAL;
         }
 
         public IActionResult HomePage()
@@ -32,30 +32,30 @@ namespace Capstone.Web.Controllers
         {
             var parkList = npgeekDAL.FindParks();
             var park = npgeekDAL.ParkDetails(parkCode, parkList);
-            string tempUnit = getCurrentTempUnit();
-            if (tempUnit == "c")
-            {
-                park.Weather = weatherDAL.ConvertWeather(park.Weather);
-            }
-
-            //ViewBag.Message = "";
-            //ViewData["Parks"] = npgeekDAL.FindParks();
-            //ViewData[""]
+            //string tempUnit = getCurrentTempUnit();
+            //if (tempUnit == "c")
+            //{
+            //    park.Weather = npgeekDAL.ConvertWeather(park.Weather);
+            //}
 
             return View(park);
         }
 
+        //ViewBag.Message = "";
+        //ViewData["Parks"] = npgeekDAL.FindParks();
+        //ViewData[""]
+
         [HttpPost]
         public IActionResult Details(string tempUnit, string parkCode)
         {
-            SaveTempUnit(tempUnit);
+            //SaveTempUnit(tempUnit);
             return RedirectToAction("Details(parkCode)");
         }
 
-        private string getCurrentTempUnit()
-        {
-            throw new NotImplementedException();
-        }
+        //private string GetCurrentTempUnit()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public IActionResult Survey()
         {

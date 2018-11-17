@@ -26,3 +26,28 @@
     </tr>
 </table>
 
+<table>
+    <thead>
+        <tr>
+            <td></td>
+            <td>---High---</td>
+            <td>--Low--</td>
+            <td>---Forecast</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var day in Model.Weather)
+        {
+            <tr>
+                <td>@day.ParkCode</td>
+                <td><strong>Day @day.FiveDayForecastValue</strong></td>
+                <td>@day.High</td>
+                <td>@day.Low</td>
+                <td>@day.Forecast</td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -10,5 +10,6 @@ namespace Capstone.Web.DAL
     {
         IList<Parks> FindParks();
         Parks ParkDetails(string id, IList<Parks> parkList);
+        List<DailyWeather> ConvertWeather(List<DailyWeather> fiveDay);
     }
 }

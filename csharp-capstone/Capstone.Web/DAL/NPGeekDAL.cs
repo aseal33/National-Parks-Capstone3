@@ -19,6 +19,7 @@ namespace Capstone.Web.DAL
 
         IList<Parks> parks = new List<Parks>();
 
+
         /// <summary>
         /// Returns a list of actors by last name search.
         /// </summary>
@@ -31,9 +32,13 @@ namespace Capstone.Web.DAL
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("SELECT * FROM park", conn);
 
+                string code = "";
+
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
+                    code = Convert.ToString(reader["parkCode"]);
+
                     Parks park = new Parks()
                     {
                         ParkCode = Convert.ToString(reader["parkcode"]),
@@ -67,45 +72,72 @@ namespace Capstone.Web.DAL
                         NumberOfAnimalSpecies = Convert.ToInt32(reader["numberofanimalspecies"])
                     };
 
+                    park.Weather = FindWeather(code);
                     parks.Add(park);
+
                 }
-
-
-                //while (reader.Read())
-                //{
-                //    actors.Add(MapRowToSurveyResult(reader));
-                //}
             }
-
             return parks;
         }
 
+        /// <summary>
+        /// Returns a list of daily weather forcasts for the FindParks method
+        /// </summary>
+        /// <param name="WeatherSearch"></param>
+        /// <returns></returns>
+        public List<DailyWeather> FindWeather(string parkCode)
+        {
+
+            List<DailyWeather> weatherForecast = new List<DailyWeather>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("SELECT * FROM weather WHERE parkCode=@parkCode ORDER BY parkCode", conn);
+                cmd.Parameters.AddWithValue("@parkCode", parkCode);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    DailyWeather weather = new DailyWeather()
+                    {
+                        ParkCode = parkCode,
+
+                        FiveDayForecastValue = Convert.ToInt32(reader["fivedayforecastvalue"]),
+
+                        Low = Convert.ToInt32(reader["low"]),
+
+                        High = Convert.ToInt32(reader["high"]),
+
+                        Forecast = Convert.ToString(reader["forecast"])
+                    };
+                    weatherForecast.Add(weather);
+                }
+            }
+            return weatherForecast;
+        }    
 
         public Parks ParkDetails(string parkCode, IList<Parks> parkList)
         {
+            Parks newPark = new Parks();
             foreach (var park in parkList)
             {
                 if (park.ParkCode == parkCode)
                 {
-                    return park;
+                    newPark = park;
                 }
             }
-            return null;
+            return newPark;
         }
 
-        /// <summary>
-        /// Maps a sql data row to a Survey object.
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
-        //private ??? MapRowToSurveyResult(SqlDataReader reader)
-        //{
-        //    return new Actor()
-        //    {
-        //        FirstName = Convert.ToString(reader["first_name"]),
-        //        LastName = Parks.lastname)
-        //    };
-        //}
+        public List<DailyWeather> ConvertWeather(List<DailyWeather> fiveDay)
+        {
+            foreach (var day in fiveDay)
+            {
+                day.High = ((day.High - 32) * (5 / 9));
+                day.Low = ((day.Low - 32) * (5 / 9));
+            }
 
+            return fiveDay;
+        }
     }
 }
